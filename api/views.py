@@ -75,7 +75,7 @@ class UserListView(APIView):
 
     def get(self, request):
         user = request.user
-        if user.role != 1:
+        if user.role != 7:
             response = {
                 'success': False,
                 'status_code': status.HTTP_403_FORBIDDEN,

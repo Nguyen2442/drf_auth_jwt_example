@@ -33,6 +33,7 @@ class AuthUserLoginSerializer(serializers.Serializer):
 
     def update(self, instance, validated_data):
         pass
+    
 
     def validate(self, data):
         email = data['email']
@@ -44,6 +45,8 @@ class AuthUserLoginSerializer(serializers.Serializer):
 
         try:
             refresh = RefreshToken.for_user(user)
+            refresh['role'] = user.role
+
             refresh_token = str(refresh)
             access_token = str(refresh.access_token)
 
@@ -65,20 +68,22 @@ class AuthUserLoginSerializer(serializers.Serializer):
 class UserListSerializer(serializers.ModelSerializer):
     class Meta:
         model = User
-        fields = (
-            'email',
-            'role',
-            'phone_number',
-        )
+        # fields = (
+        #     'email',
+        #     'role',
+        #     'phone_number',
+        # )
+        fields = '__all__'
+        
         
 # Custom Serializer for custom jwt
-class MyTokenObtainPairSerializer(TokenObtainPairSerializer):
-    # Override get_token of TokenObtainPairSerializer
-    def get_token(cls, user):
-        # Get token from TokenObtainPairSerializer
-        token = super().get_token(user)
+# class MyTokenObtainPairSerializer(TokenObtainPairSerializer):
+#     # Override get_token of TokenObtainPairSerializer
+#     def get_token(cls, user):
+#         # Get token from TokenObtainPairSerializer
+#         token = super().get_token(user)
 
-        # Adding role to token
-        token['role'] = user.profile.role
+#         # Adding role to token
+#         token['role'] = user.profile.role
 
-        return token
+#         return token
