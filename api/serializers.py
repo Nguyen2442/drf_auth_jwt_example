@@ -13,7 +13,8 @@ class AuthUserRegistrationSerializer(serializers.ModelSerializer):
         model = User
         fields = (
             'email',
-            'password'
+            'password',
+            'phone_number'
         )
 
     def create(self, validated_data):
@@ -66,7 +67,8 @@ class UserListSerializer(serializers.ModelSerializer):
         model = User
         fields = (
             'email',
-            'role'
+            'role',
+            'phone_number',
         )
         
 # Custom Serializer for custom jwt
