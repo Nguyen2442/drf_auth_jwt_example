@@ -44,7 +44,7 @@ class AuthUserLoginSerializer(serializers.Serializer):
 
         try:
             refresh = RefreshToken.for_user(user)
-            refresh['role'] = user.role
+            # refresh['role'] = user.role
 
             refresh_token = str(refresh)
             access_token = str(refresh.access_token)
@@ -55,7 +55,7 @@ class AuthUserLoginSerializer(serializers.Serializer):
                 'access': access_token,
                 'refresh': refresh_token,
                 'email': user.email,
-                #'full_name': user.get_full_name(),
+                'full_name': user.get_full_name(),
                 'role': user.role,
             }
 
